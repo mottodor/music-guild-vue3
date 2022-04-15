@@ -8,8 +8,6 @@ onAuthStateChanged(projectAuth, (_user) => {
     user.value = _user
 })
 
-const getUser = () => {
-    return { user }
-}
+const getUser = () => ({ user })
 
 export default getUser
