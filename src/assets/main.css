@@ -26,18 +26,19 @@ a {
 
 /* buttons */
 button,
-.btn {
+.btn,
+input[type='file']::file-selector-button {
     background: var(--secondary);
     border-radius: 8px;
     border: 0;
     padding: 8px 12px;
-    font-weight: 600;
     cursor: pointer;
     display: inline-block;
 }
 
 button:hover,
-.btn:hover {
+.btn:hover,
+input[type='file']::file-selector-button:hover {
     background: var(--primary);
     color: white;
 }

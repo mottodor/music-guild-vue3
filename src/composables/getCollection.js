@@ -7,7 +7,7 @@ const getCollection = (collectionName) => {
     const error = ref(null)
 
     const collectionRef = collection(projectFirestore, collectionName)
-    const q = query(collectionRef, orderBy('created'))
+    const q = query(collectionRef, orderBy('createdAt'))
     const unSub = onSnapshot(
         q,
         (snap) => {
