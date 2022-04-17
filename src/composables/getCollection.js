@@ -2,7 +2,7 @@ import { ref, watchEffect } from 'vue'
 import { projectFirestore } from '@/firebase/config'
 import { query, orderBy, collection, onSnapshot } from 'firebase/firestore'
 
-const getCollection = (collectionName) => {
+const getCollection = collectionName => {
     const documents = ref(null)
     const error = ref(null)
 
@@ -10,23 +10,22 @@ const getCollection = (collectionName) => {
     const q = query(collectionRef, orderBy('createdAt'))
     const unSub = onSnapshot(
         q,
-        (snap) => {
+        snap => {
             let results = []
-            snap.docs.forEach((doc) => {
-                doc.data().created &&
-                    results.push({ ...doc.data(), id: doc.id })
+            snap.docs.forEach(doc => {
+                doc.data().createdAt &&
+                results.push({ ...doc.data(), id: doc.id })
             })
             documents.value = results
             error.value = null
         },
-        (err) => {
-            console.log(err.message)
+        err => {
             documents.value = null
             error.value = err.message
         }
     )
 
-    watchEffect((onInvalidate) => {
+    watchEffect(onInvalidate => {
         onInvalidate(() => unSub())
     })
 
