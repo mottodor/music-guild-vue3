@@ -5,6 +5,7 @@ import LoginView from '@/views/auth/LoginView'
 import SignupView from '@/views/auth/SignupView'
 import CreatePlaylistView from '@/views/playlist/CreatePlaylistView'
 import PlaylistDetailsView from '@/views/playlist/PlaylistDetailsView'
+import userPlaylistsView from '@/views/playlist/UserPlaylistsView'
 
 const requireAuth = (to, from, next) => {
     const user = projectAuth.currentUser
@@ -44,6 +45,12 @@ const routes = [
         component: PlaylistDetailsView,
         beforeEnter: requireAuth,
         props: true,
+    },
+    {
+        path: '/playlists/user',
+        name: 'userPlaylists',
+        component: userPlaylistsView,
+        beforeEnter: requireAuth,
     },
 ]
 
