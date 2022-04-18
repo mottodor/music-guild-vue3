@@ -1,4 +1,5 @@
 import { ref as vueRef } from 'vue'
+import uniqid from 'uniqid'
 import {
     ref as ref,
     uploadBytes,
@@ -16,7 +17,7 @@ const useStorage = () => {
     const filePath = vueRef(null)
 
     const uploadImage = async file => {
-        filePath.value = `covers/${user.value.uid}/${file.name}`
+        filePath.value = `covers/${user.value.uid}/${uniqid() + file.name}`
         const storageRef = ref(projectStorage, filePath.value)
 
         try {
