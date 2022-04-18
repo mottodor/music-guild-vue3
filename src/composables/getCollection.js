@@ -8,13 +8,13 @@ const getCollection = collectionName => {
 
     const collectionRef = collection(projectFirestore, collectionName)
     const q = query(collectionRef, orderBy('createdAt'))
-    const unSub = onSnapshot(
+    const unsub = onSnapshot(
         q,
         snap => {
             let results = []
             snap.docs.forEach(doc => {
                 doc.data().createdAt &&
-                results.push({ ...doc.data(), id: doc.id })
+                    results.push({ ...doc.data(), id: doc.id })
             })
             documents.value = results
             error.value = null
@@ -26,7 +26,7 @@ const getCollection = collectionName => {
     )
 
     watchEffect(onInvalidate => {
-        onInvalidate(() => unSub())
+        onInvalidate(() => unsub())
     })
 
     return { documents, error }
