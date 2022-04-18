@@ -4,6 +4,7 @@ import HomeView from '@/views/HomeView.vue'
 import LoginView from '@/views/auth/LoginView'
 import SignupView from '@/views/auth/SignupView'
 import CreatePlaylistView from '@/views/playlist/CreatePlaylistView'
+import PlaylistDetailsView from '@/views/playlist/PlaylistDetailsView'
 
 const requireAuth = (to, from, next) => {
     const user = projectAuth.currentUser
@@ -36,6 +37,13 @@ const routes = [
         name: 'createPlaylist',
         component: CreatePlaylistView,
         beforeEnter: requireAuth,
+    },
+    {
+        path: '/playlists/:id',
+        name: 'playlistDetails',
+        component: PlaylistDetailsView,
+        beforeEnter: requireAuth,
+        props: true,
     },
 ]
 

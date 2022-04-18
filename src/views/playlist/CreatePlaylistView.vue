@@ -13,6 +13,7 @@
 
 <script>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import useStorage from '@/composables/useStorage'
 import useCollection from '@/composables/useCollection'
 import getUser from '@/composables/getUser'
@@ -25,16 +26,18 @@ export default {
         const description = ref('')
         const file = ref(null)
         const fileError = ref(null)
+        const isPending = ref(false)
+
         const { url, filePath, uploadImage } = useStorage()
         const { error, addToCollection } = useCollection('playlists')
         const { user } = getUser()
-        const isPending = ref(false)
+        const router = useRouter()
 
         const handleSubmit = async () => {
             if (file.value) {
                 isPending.value = true
                 await uploadImage(file.value)
-                await addToCollection({
+                const res = await addToCollection({
                     title: title.value,
                     description: description.value,
                     userId: user.value.uid,
@@ -46,7 +49,7 @@ export default {
                 })
                 isPending.value = false
                 if (!error.value) {
-                    console.log('playlist added')
+                    await router.push({ name: 'playlistDetails', params: { id: res.id } })
                 } else {
                     console.log(error.value)
                 }
